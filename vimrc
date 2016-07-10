@@ -2,7 +2,7 @@
 syntax on
 
 "color background
-" set background=dark
+set background=dark
 
 "display line number
 set number
@@ -18,9 +18,10 @@ set hlsearch
 
 "color theme
 " colo elflord
-" colo hybrid
-set background=dark
-colorscheme hybrid
+colorschem hybrid
+
+"no icon bar
+set guioptions-=T
 
 "tabulation setting
 set tabstop=4       " The width of a TAB is set to 4.
@@ -49,11 +50,13 @@ execute pathogen#infect()
 "********************"
 "nerdtree plugin to display directory tree
 
-"auto load at start 
-autocmd vimenter * NERDTree
+"auto load at start if no file in arg
+if argc() == 0
+    autocmd vimenter * NERDTree
+endif
 
 "ignore pyc files"
-let NERDTreeIgnore=['.pyc$[[file]]', '\~$']
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 "jump to NerdTree window
 map <C-a> :NERDTreeToggle<CR>:NERDTreeToggle<CR>
@@ -61,29 +64,22 @@ map <C-a> :NERDTreeToggle<CR>:NERDTreeToggle<CR>
 "open/close NerdTree window
 map <C-F9> :NERDTreeToggle<CR>
 
+" refresh tree from Root 
+let g:NERDTreeMapRefreshRoot='<C-F5>'
+
+" Bookmark display and set
+let g:NERDTreeMapToggleBookmarks='<C-b>'
+map <S-b> :Bookmark
+
+" up a dir
+let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
 
 "*******************"
-"***** taglist *****"
+""***** tagbar *****"
 "*******************"
-"open taglist on the right
-let Tlist_Use_Right_Window=1
+map <C-F10> :TagbarToggle<CR>
+map <C-z> :TagbarOpen fj<CR>
 
-"jump to TagList window
-let Tlist_GainFocus_On_ToggleOpen=1
-map <C-e> :TlistToggle<CR>:TlistToggle<CR>
-
-"open/close TagList window
-map <C-F10> :TlistToggle<CR>
-
-"close unactivated file tag list tree
-let Tlist_File_Fold_Auto_Close=1
-
-"let Tlist_Auto_Open=1
-"let Tlist_Enable_Fold_Column=0
-"let Tlist_Compact_Format=0
-"let Tlist_WinWidth=28
-"let Tlist_Exit_OnlyWindow=1
-"nmap <LocalLeader>tt :Tlist<cr>
 
 "*********************"
 "***** Comentary *****"
@@ -91,22 +87,26 @@ let Tlist_File_Fold_Auto_Close=1
 "map for commentary
 map <S-c>  <Plug>Commentary<Right>
 
-map <C-F5> NERDTree-R<CR>
-
-
 "***********************"
 "***** minibufexpl *****"
 "***********************"
+"switch left file
+map <C-PageUp> :MBEbp<CR>
+
+"switch right file
+map <C-PageDown> :MBEbn<CR>
+
 "switch previous file
-map <C-PageUp> :bp<CR>
+map <C-Up> :MBEbb<CR>
 
 "switch next file
-map <C-PageDown> :bn<CR>
+map <C-Down> :MBEbn<CR>
+
+"close curent file
+map <C-w> :MBEbd<CR>
 
 "Jump to mini buf exp wondow
-map <C-z> :MBEFocus<CR>
-
-map <C-r> :%s/
+"map <C-z> :MBEFocus<CR>
 
 "*****************"
 "***** other *****"
@@ -125,6 +125,32 @@ filetype plugin on
 
 "map <m-Tab> :ls<CR>
 
+
+"-----------------------------------------------------------------------------
+"" Backup files
+
+let $YGA_TMP_VIM_DIR = $HOME . "/vim_tmps"
+if filewritable($YGA_TMP_VIM_DIR) == 0
+    call mkdir($YGA_TMP_VIM_DIR)
+    endif
+"
+"    " Backup
+    set backupdir=$YGA_TMP_VIM_DIR
+    set backupext=.bak " Extension .bak
+    set backup
+
+"-----------------------------------------------------------------------------
+"" c/c++
+"----------------------------------------------------------------------------
+"" map <ctrl>+F12 to generate ctags for current folder:
+autocmd FileType c,cpp map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+
+
+" tab in order to switch window
+map <Tab> :wincmd w<CR>
+
+
+
 "Command :Shell execute command and display output in a new window
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -142,8 +168,8 @@ function! s:RunShellCommand(cmdline)
   call setline(2, 'Expanded Form:  ' .expanded_cmdline)
   call setline(3,substitute(getline(2),'.','=','g'))
   execute '$read !'. expanded_cmdline
-  setlocal nomodifiable
-  1
+  " setlocal nomodifiable
+  " 1
 endfunction
 
 map <C-f> :Shell grep -r 
