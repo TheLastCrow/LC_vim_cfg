@@ -4,6 +4,9 @@ syntax on
 "color background
 set background=dark
 
+"full screen mode
+set lines=999 columns=999
+
 "display line number
 set number
 
