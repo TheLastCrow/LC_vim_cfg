@@ -1,0 +1,18 @@
+************************************************************
+NerdTree with vim 7.2:
+error on expand:
+Unknown function: strchars
+
+fix:
+IN 
+vim/bundle/nerdtree/lib/nerdtree/ui.vim
+UI._indentLevelFor
+REPLACE
+let leadChars = strchars(a:line[0:numLeadBytes-1])
+BY
+let leadChars = strlen(substitute(copy(a:line[0:numLeadBytes-1]), '.', 'x', 'g'))
+
+source:
+https://github.com/scrooloose/nerdtree/issues/521
+
+*************************************************************

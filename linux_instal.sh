@@ -34,7 +34,7 @@ then
 	echo $home_path"/.vim found, it will be erase, please save it."
 	read z
 fi
-rm -r $home_path/.vim
+rm -rf $home_path/.vim
 ln -s $PWD/vim $home_path/.vim
 
 #install plugin
