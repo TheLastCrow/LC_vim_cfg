@@ -1,0 +1,8 @@
+new install for windows and linux
+
+create new .vimrc or _vimrc in $HOME path
+with:
+
+set runtimepath^=~/vim_cfg/vim
+source ~/vim_cfg/vimrc
+
