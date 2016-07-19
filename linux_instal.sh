@@ -7,11 +7,19 @@ then
 	exit
 fi
 
-#select user
-echo "User name:"
-read user_name
-echo "you select user "$user_name
-home_path=/home/$user_name
+
+#set home_path
+home_path=$HOME
+
+echo "HOME path used will be :"$home_path
+echo "Do you want use this HOME path ? [y/n]"
+read z
+if [ $z != 'y' ]
+then
+    echo "enter HOME wanted path:"
+    read z
+    home_path=$z
+fi
 
 if [ ! -e $home_path ]
 then
@@ -19,25 +27,41 @@ then
 	return
 fi
 
-#install vimrc
-if [ -e $home_path/.vimrc ]
+
+#uninstall vim and vimrc
+if [ -e $home_path/.vimrc ] || [ -e $home_path/.vim ] 
 then
-	echo $home_path"/.vimrc found, it will be erase, please save it."
+	echo "Warning: .vimrc or/and .vim in "$home_path" found. They will be erased, please save it if needed."
+    echo "Do you want to continue ? [y/n]"
 	read z
+    if [ $z != 'y' ]
+    then
+        echo "Instal cancelled!"
+        return 0
+    fi
 fi
 rm $home_path/.vimrc
-ln -s $PWD/vimrc $home_path/.vimrc
-
-#install vim
-if [ -e $home_path/.vim ]
-then
-	echo $home_path"/.vim found, it will be erase, please save it."
-	read z
-fi
 rm -rf $home_path/.vim
-ln -s $PWD/vim $home_path/.vim
+echo "Old conf deleted"
 
-#install plugin
+
+#install new vimrc
+touch $home_path/.vimrc
+
+echo "set runtimepath^="$PWD"/vim" > $home_path/.vimrc 
+echo "source "$PWD"/vimrc" >> $home_path/.vimrc
+
+echo "New vimrc file generated"
+
+#pull git plugin
+echo "Do you want pull modules from git ? [y/n]"
+read z
+if [ $z != 'y' ]
+then
+    echo "No pull requested, install finished"
+    return 0
+fi
+
 rm -rf vim/bundle/*
 cat module.list | while read line
 do
