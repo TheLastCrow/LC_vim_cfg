@@ -5,7 +5,7 @@ syntax on
 set background=dark
 
 "full screen mode
-set lines=999 columns=999
+set lines=999 columns=999 linespace=0
 
 "display line number
 set number
@@ -22,6 +22,13 @@ set hlsearch
 "color theme
 " colo elflord
 colorschem hybrid
+
+"font
+if has('gui_win32')
+    set guifont=DejaVu_Sans_Mono:h10:cANSI
+  else
+    set guifont=Monospace\ 15
+  endif
 
 "no icon bar
 set guioptions-=T
@@ -117,23 +124,37 @@ map <C-w> :MBEbd<CR>
 "*****************"
 "***** other *****"
 "*****************"
-
-"filetype ???
-"filetype plugin indent on
-filetype plugin on
-
-
-"***** Keyboard Shortcut *****"
-"map <C-F12> :ls<CR>
-"map <press Ctrl-V><press Ctrl-K> :ls<CR>
-"map <C-Left> :bp<CR>
-"map <C-Right> :bn<CR>
-
-"map <m-Tab> :ls<CR>
+"----------------------------------------------------------------------------
+"" window shortcut
+"----------------------------------------------------------------------------
+" tab in order to switch window
+map <Tab> :wincmd w<CR>
 
 
 "-----------------------------------------------------------------------------
+"" Search macro
+"----------------------------------------------------------------------------
+
+map <C-f> :execute ":noautocmd vimgrep /" . expand("<cword>") . "/gj %" <Bar> cw<CR>
+map <S-f> :execute ":noautocmd vimgrep /" . expand("<cword>") . "/gj **" <Bar> cw<CR>
+
+command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
+function SearchFile(name)
+  let cmd = ":lvimgrep /".a:name."/gj %"
+  execute cmd
+  :lopen
+endfunction
+
+command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
+function SearchAll(name)
+  let cmd = ":lvimgrep /".a:name."/gj **"
+  execute cmd
+  :lopen
+endfunction
+
+"-----------------------------------------------------------------------------
 "" Backup files
+"-----------------------------------------------------------------------------
 
 let $YGA_TMP_VIM_DIR = $HOME . "/vim_tmps"
 if filewritable($YGA_TMP_VIM_DIR) == 0
@@ -145,17 +166,15 @@ if filewritable($YGA_TMP_VIM_DIR) == 0
     set backupext=.bak " Extension .bak
     set backup
 
-"-----------------------------------------------------------------------------
-"" c/c++
+"----------------------------------------------------------------------------
+"" c/c++ ctags
 "----------------------------------------------------------------------------
 "" map <ctrl>+F12 to generate ctags for current folder:
 autocmd FileType c,cpp map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
 
-
-" tab in order to switch window
-map <Tab> :wincmd w<CR>
-
-
+"----------------------------------------------------------------------------
+"" other
+"----------------------------------------------------------------------------
 
 "Command :Shell execute command and display output in a new window
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -178,4 +197,18 @@ function! s:RunShellCommand(cmdline)
   " 1
 endfunction
 
-map <C-f> :Shell grep -r 
+" map <C-f> :Shell grep -r 
+
+"filetype ???
+"filetype plugin indent on
+filetype plugin on
+
+
+"***** Keyboard Shortcut *****"
+"map <C-F12> :ls<CR>
+"map <press Ctrl-V><press Ctrl-K> :ls<CR>
+"map <C-Left> :bp<CR>
+"map <C-Right> :bn<CR>
+
+"map <m-Tab> :ls<CR>
+

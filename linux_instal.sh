@@ -7,7 +7,6 @@ then
 	exit
 fi
 
-
 #set home_path
 home_path=$HOME
 
@@ -31,7 +30,7 @@ fi
 #uninstall vim and vimrc
 if [ -e $home_path/.vimrc ] || [ -e $home_path/.vim ] 
 then
-	echo "Warning: .vimrc or/and .vim in "$home_path" found. They will be erased, please save it if needed."
+	echo "Warning: .vimrc or/and .vim in "$home_path" found. They will be erased, please save it if needed before continue."
     echo "Do you want to continue ? [y/n]"
 	read z
     if [ $z != 'y' ]
