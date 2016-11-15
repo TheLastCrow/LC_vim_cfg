@@ -27,7 +27,7 @@ colorschem hybrid
 if has('gui_win32')
     set guifont=DejaVu_Sans_Mono:h10:cANSI
   else
-    set guifont=Monospace\ 15
+    set guifont=Monospace\ 11
   endif
 
 "no icon bar
@@ -135,23 +135,75 @@ map <Tab> :wincmd w<CR>
 "" Search macro
 "----------------------------------------------------------------------------
 
-map <C-f> :execute ":noautocmd vimgrep /" . expand("<cword>") . "/gj %" <Bar> cw<CR>
-map <S-f> :execute ":noautocmd vimgrep /" . expand("<cword>") . "/gj **" <Bar> cw<CR>
+if has('gui_win32')
+    " map <C-f> :execute search_tool . " /" . expand("<cword>") . "/gj %" <Bar>:lopen<CR>
+    map <C-f> :execute ":noautocmd lvimgrep /" . expand("<cword>") . "/gj %" <Bar>:lw<CR>
+    map <S-f> :execute ":noautocmd lvimgrep /" . expand("<cword>") . "/gj **" <Bar>:lw<CR>
+    
+    command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
+    function SearchFile(name)
+      let cmd = ":lvimgrep /".a:name."/gj %"
+      execute cmd
+      :lopen
+    endfunction
+    
+    command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
+    function SearchAll(name)
+      let cmd = ":lvimgrep /".a:name."/gj **"
+      execute cmd
+      :lopen
+    endfunction
+    
+else
+    map <C-f> :execute ":lgrep " . expand("<cword>") . " %" <CR><Bar>:lw<CR>
+    map <S-f> :execute ":lgrep -r " . expand("<cword>") . " ." <CR><Bar>:lw<CR>
+    
+    command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
+    function SearchFile(name)
+      let cmd = ":lgrep ".a:name." %"
+      execute cmd
+      call feedkeys("\<CR>")
+      :lw
+    endfunction
+    
+    command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
+    function SearchAll(name)
+      let cmd = ":lgrep ".a:name." **"
+      execute cmd
+      call feedkeys("\<CR>")
+      :lw
+    endfunction
+    
+endif
 
-command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
-function SearchFile(name)
-  let cmd = ":lvimgrep /".a:name."/gj %"
-  execute cmd
-  :lopen
+
+"-----------------------------------------------------------------------------
+"" Replace macro
+"-----------------------------------------------------------------------------
+command! -complete=shellcmd -nargs=+ Ra call ReplaceAll(<q-args>)
+function ReplaceAll(arg)
+  let build_arg = substitute(a:arg, " ", "/", "")
+  let cmd = ":%s/".build_arg."/g"
+  echo cmd
+  if input("Confirm Enter/no?") == ""
+    execute cmd
+  else
+    echo "command cancel!"
+  endif 
 endfunction
 
-command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
-function SearchAll(name)
-  let cmd = ":lvimgrep /".a:name."/gj **"
-  execute cmd
-  :lopen
+command! -complete=shellcmd -nargs=+ Rc call ReplaceConfirm(<q-args>)
+function ReplaceConfirm(arg)
+  let build_arg = substitute(a:arg, " ", "/", "")
+  let cmd = ":%s/".build_arg."/gc"
+  echo cmd
+  if input("Confirm Enter/no?") == ""
+    execute cmd
+  else
+    echo "command cancel!"
+  endif 
 endfunction
-
+  
 "-----------------------------------------------------------------------------
 "" Backup files
 "-----------------------------------------------------------------------------
