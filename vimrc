@@ -168,7 +168,7 @@ else
     
     command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
     function SearchAll(name)
-      let cmd = ":lgrep ".a:name." **"
+      let cmd = ":lgrep -r ".a:name." ."
       execute cmd
       call feedkeys("\<CR>")
       :lw
