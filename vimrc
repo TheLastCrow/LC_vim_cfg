@@ -203,6 +203,18 @@ function ReplaceConfirm(arg)
     echo "command cancel!"
   endif 
 endfunction
+
+command! -complete=shellcmd -nargs=+ Rs call ReplaceSelection(<q-args>)
+function ReplaceSelection(arg)
+  let build_arg = substitute(a:arg, " ", "/", "")
+  let cmd = ":'<,'>s/".build_arg."/g"
+  echo cmd
+  if input("Confirm Enter/no?") == ""
+    execute cmd
+  else
+    echo "command cancel!"
+  endif 
+endfunction
   
 "-----------------------------------------------------------------------------
 "" Backup files
