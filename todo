@@ -1,8 +1,16 @@
-new install for windows and linux
+add '' for search in order to avoid jump
 
-create new .vimrc or _vimrc in $HOME path
-with:
+buffer handle for copy paste
 
-set runtimepath^=~/vim_cfg/vim
-source ~/vim_cfg/vimrc
+javascript mod
+https://github.com/pangloss/vim-javascript
 
+to be checked:
+https://github.com/junegunn/fzf.vim
+https://github.com/SirVer/ultisnips
+
+multi window handle
+
+ctag management ?
+
+new install for windows

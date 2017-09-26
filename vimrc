@@ -49,6 +49,9 @@ set expandtab       " Expand TABs to spaces
 set backspace=2
 set backspace=indent,eol,start
 
+""highlight with * without jump
+nnoremap * *``
+
 "*********************"
 "****** Pathogen *****"
 "*********************"
