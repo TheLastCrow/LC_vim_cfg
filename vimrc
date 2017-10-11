@@ -261,6 +261,7 @@ if filewritable($YGA_TMP_VIM_DIR) == 0
 "----------------------------------------------------------------------------
 "" map <ctrl>+F12 to generate ctags for current folder:
 autocmd FileType c,cpp map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+" map <C-F12> :!ctags -R --languages=javascript --tag-relative --exclude=node_modules **<CR>
 
 " :help tag-matchlist
 " choose in list
