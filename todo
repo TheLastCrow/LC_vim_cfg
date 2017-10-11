@@ -1,6 +1,3 @@
-add '' for search in order to avoid jump
-
-buffer handle for copy paste
 
 javascript mod
 https://github.com/pangloss/vim-javascript
@@ -11,6 +8,6 @@ https://github.com/SirVer/ultisnips
 
 multi window handle
 
-ctag management ?
+git management ?
 
 new install for windows

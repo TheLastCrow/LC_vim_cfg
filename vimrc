@@ -49,8 +49,24 @@ set expandtab       " Expand TABs to spaces
 set backspace=2
 set backspace=indent,eol,start
 
+"*********************"
+"****Custom key*******"
+"*********************"
+
+" :help keycodes
+
 ""highlight with * without jump
 nnoremap * *``
+
+" :help jump
+" jump previous
+nnoremap <C-Up> <C-O>
+" jump next
+nnoremap <C-Down> <C-I>
+
+" :help registers
+" force copy in clipboard
+vnoremap y "+y
 
 "*********************"
 "****** Pathogen *****"
@@ -93,9 +109,10 @@ let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
 "*******************"
 ""***** tagbar *****"
 "*******************"
-map <C-F10> :TagbarToggle<CR>
+map <C-F10> :TagbarToggle<CR>:TagbarSetFoldlevel 0<CR>
 map <C-z> :TagbarOpen fj<CR>
-
+map <C-kPlus> :TagbarSetFoldlevel 1<CR>
+map <C-kMinus> :TagbarSetFoldlevel 0<CR>
 
 "*********************"
 "***** Comentary *****"
@@ -113,10 +130,10 @@ map <C-PageUp> :MBEbp<CR>
 map <C-PageDown> :MBEbn<CR>
 
 "switch previous file
-map <C-Up> :MBEbb<CR>
+" map <C-Up> :MBEbb<CR>
 
 "switch next file
-map <C-Down> :MBEbn<CR>
+" map <C-Down> :MBEbn<CR>
 
 "close curent file
 map <C-w> :MBEbd<CR>
@@ -133,6 +150,8 @@ map <C-w> :MBEbd<CR>
 " tab in order to switch window
 map <Tab> :wincmd w<CR>
 
+" shift tab in order to switch previous window
+map <S-Tab> :wincmd W<CR>
 
 "-----------------------------------------------------------------------------
 "" Search macro
@@ -158,8 +177,8 @@ if has('gui_win32')
     endfunction
     
 else
-    map <C-f> :execute ":lgrep " . expand("<cword>") . " %" <CR><Bar>:lw<CR>
-    map <S-f> :execute ":lgrep -r " . expand("<cword>") . " ." <CR><Bar>:lw<CR>
+    map <C-f> :execute ":lgrep " . expand("<cword>") . " %" <CR><Bar>``:lw<CR>
+    map <S-f> :execute ":lgrep -r " . expand("<cword>") . " ." <CR><Bar>``:lw<CR>
     
     command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
     function SearchFile(name)
@@ -238,6 +257,14 @@ if filewritable($YGA_TMP_VIM_DIR) == 0
 "----------------------------------------------------------------------------
 "" map <ctrl>+F12 to generate ctags for current folder:
 autocmd FileType c,cpp map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+
+" :help tag-matchlist
+" choose in list
+map <C-CR> g]
+" get first occurance
+" map <C-CR> :execute "tag ".expand("<cword>")<CR>
+" alt-enter go to next definition (broken)
+" map <A-CR>:tn<CR>
 
 "----------------------------------------------------------------------------
 "" other
