@@ -65,8 +65,12 @@ nnoremap <C-Up> <C-O>
 nnoremap <C-Down> <C-I>
 
 " :help registers
-" force copy in clipboard
-vnoremap y "+y
+" force copy in clipboard in * and + reg
+vnoremap y "+y :let @*=@+ <CR>
+
+noremap <C-t> :split<CR>
+noremap <C-y> :vsplit<CR>
+noremap <Esc> :q<CR>
 
 "*********************"
 "****** Pathogen *****"
