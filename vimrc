@@ -70,7 +70,7 @@ vnoremap y "+y :let @*=@+ <CR>
 
 noremap <C-t> :split<CR>
 noremap <C-y> :vsplit<CR>
-noremap <Esc> :q<CR>
+" noremap <Esc> :q<CR>
 
 "*********************"
 "****** Pathogen *****"
@@ -113,9 +113,9 @@ let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
 "*******************"
 ""***** tagbar *****"
 "*******************"
-map <C-F10> :TagbarToggle<CR>:TagbarSetFoldlevel 0<CR>
+map <C-F10> :TagbarToggle<CR>:TagbarSetFoldlevel 1<CR>
 map <C-z> :TagbarOpen fj<CR>
-map <C-kPlus> :TagbarSetFoldlevel 1<CR>
+map <C-kPlus> :TagbarSetFoldlevel 99<CR>
 map <C-kMinus> :TagbarSetFoldlevel 0<CR>
 
 "*********************"
@@ -127,6 +127,14 @@ map <S-c>  <Plug>Commentary<Right>
 "***********************"
 "***** minibufexpl *****"
 "***********************"
+"auto load minbuf exp if no file open
+if argc() == 0
+    autocmd vimenter * MBEOpen
+endif
+
+" Open minibufexpl
+map <C-F8> :MBEOpen<CR>
+
 "switch left file
 map <C-PageUp> :MBEbp<CR>
 
