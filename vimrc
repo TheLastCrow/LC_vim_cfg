@@ -113,7 +113,7 @@ let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
 "*******************"
 ""***** tagbar *****"
 "*******************"
-map <C-F10> :TagbarToggle<CR>:TagbarSetFoldlevel 1<CR>
+map <C-F10> :TagbarToggle<CR>
 map <C-z> :TagbarOpen fj<CR>
 map <C-kPlus> :TagbarSetFoldlevel 99<CR>
 map <C-kMinus> :TagbarSetFoldlevel 0<CR>
@@ -152,6 +152,41 @@ map <C-w> :MBEbd<CR>
 
 "Jump to mini buf exp wondow
 "map <C-z> :MBEFocus<CR>
+
+"*********************"
+"***** lightline *****"
+"*********************"
+" disable mode in bottom bar
+set noshowmode
+
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'filename', 'modified' ] ],
+    \ 'right':[ [ 'percent' ],
+    \           [ 'lineinfo' ],
+    \           [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'percent' ],
+    \            [ 'lineinfo' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+
+let g:lightline = {
+\ 'colorscheme': 'custom_style',
+\ }
+
+"" try to disable status for plugin
+" let g:lightline = {
+      " \ 'colorscheme': 'custom_style',
+      " \ 'component_function': {
+      " \   'filetype': 'LightlineFiletype',
+      " \ },
+      " \ }
+
+" function! LightlineFiletype()
+  " return &filetype !=# 'nerdtree' ? expand('%:t') : ''
+" endfunction
+
 
 "*****************"
 "***** other *****"
