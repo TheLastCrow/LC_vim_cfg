@@ -236,7 +236,7 @@ if has('gui_win32')
     
 else
     map <C-f> :execute ":lgrep " . expand("<cword>") . " %" <CR><Bar>``:lw<CR>
-    map <S-f> :execute ":lgrep -r " . expand("<cword>") . " ." <CR><Bar>``:lw<CR>
+    map <S-f> :execute ":lgrep -r " . expand("<cword>") . " . --exclude tags" <CR><Bar>``:lw<CR>
     
     command! -complete=shellcmd -nargs=+ Sf call SearchFile(<q-args>)
     function SearchFile(name)
@@ -248,7 +248,7 @@ else
     
     command! -complete=shellcmd -nargs=+ Sa call SearchAll(<q-args>)
     function SearchAll(name)
-      let cmd = ":lgrep -r ".a:name." ."
+      let cmd = ":lgrep -r ".a:name." . --exclude tags"
       execute cmd
       call feedkeys("\<CR>")
       :lw
