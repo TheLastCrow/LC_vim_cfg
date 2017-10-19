@@ -103,12 +103,23 @@ map <C-F9> :NERDTreeToggle<CR>
 " refresh tree from Root 
 let g:NERDTreeMapRefreshRoot='<C-F5>'
 
-" Bookmark display and set
-let g:NERDTreeMapToggleBookmarks='<C-b>'
-map <S-b> :Bookmark
-
 " up a dir
 let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
+
+" *** Bookmark ***
+
+" Bookmark display
+let g:NERDTreeMapToggleBookmarks='<C-b>'
+
+"set pwd as Bookmark (name of bookmark to be enter)
+map <S-b> :Bookmark
+
+"delete bookmark when focus on it
+"Shift+d
+
+"set fociused of NerdTree as new pwd :help NERDTree-cd
+"cd 
+
 
 "*******************"
 ""***** tagbar *****"
