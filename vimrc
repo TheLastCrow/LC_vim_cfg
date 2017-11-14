@@ -170,6 +170,10 @@ map <C-w> :MBEbd<CR>
 " disable mode in bottom bar
 set noshowmode
 
+let g:lightline = {
+\ 'colorscheme': 'custom_style',
+\ }
+
 let g:lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
     \           [ 'readonly', 'filename', 'modified' ] ],
@@ -181,10 +185,6 @@ let g:lightline.inactive = {
     \ 'right': [ [ 'percent' ],
     \            [ 'lineinfo' ],
     \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-
-let g:lightline = {
-\ 'colorscheme': 'custom_style',
-\ }
 
 "" try to disable status for plugin
 " let g:lightline = {
