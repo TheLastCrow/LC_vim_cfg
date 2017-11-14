@@ -145,21 +145,21 @@ function! s:MatchToggle()
   else
     let g:match_maps = 1
     for i in range(1, 9)
-      execute 'vnoremap <silent> <k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 1, v:count)<CR>'
-      execute 'nnoremap <silent> <k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 2, v:count)<CR>'
+      execute 'vnoremap <silent> <C-k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 1, v:count)<CR>'
+      execute 'nnoremap <silent> <C-k'.i.'> :<C-U>call <SID>DoHighlight('.i.', 2, v:count)<CR>'
     endfor
-    vnoremap <silent> <k0> :<C-U>call <SID>UndoHighlight(1)<CR>
-    nnoremap <silent> <k0> :<C-U>call <SID>UndoHighlight(2)<CR>
-    nnoremap <silent> <kMinus> :call <SID>WindowMatches(0)<CR>
-    nnoremap <silent> <kPlus> :call <SID>WindowMatches(1)<CR>
-    nnoremap <silent> <kMultiply> :call <SID>WindowMatches(2)<CR>
+    vnoremap <silent> <C-k0> :<C-U>call <SID>UndoHighlight(1)<CR>
+    nnoremap <silent> <C-k0> :<C-U>call <SID>UndoHighlight(2)<CR>
+    nnoremap <silent> <C-kMinus> :call <SID>WindowMatches(0)<CR>
+    nnoremap <silent> <C-kPlus> :call <SID>WindowMatches(1)<CR>
+    nnoremap <silent> <C-kMultiply> :call <SID>WindowMatches(2)<CR>
     nnoremap <silent> <Leader>f :call <SID>Search(0)<CR>
     nnoremap <silent> <Leader>F :call <SID>Search(1)<CR>
     nnoremap <silent> <Leader>n :let @/=<SID>Search(0)<CR>
     nnoremap <silent> <Leader>N :let @/=<SID>Search(1)<CR>
   endif
   call s:WindowMatches(g:match_maps)
-  echo 'Mappings for matching:' g:match_maps ? 'ON' : 'off'
+  " echo 'Mappings for matching:' g:match_maps ? 'ON' : 'off'
 endfunction
 nnoremap <silent> <Leader>m :call <SID>MatchToggle()<CR>
  
@@ -304,3 +304,5 @@ function! s:Highlight(args) range
 endfunction
 command! -nargs=* -range Highlight call s:Highlight('<args>')
 
+"enable it by default
+norm \m
