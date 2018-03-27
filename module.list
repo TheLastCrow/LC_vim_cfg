@@ -4,5 +4,7 @@ https://github.com/majutsushi/tagbar.git
 https://github.com/tpope/vim-commentary
 https://github.com/terryma/vim-multiple-cursors.git
 https://github.com/itchyny/lightline.vim.git
-
+https://github.com/Xuyuanp/nerdtree-git-plugin.git
+https://github.com/airblade/vim-gitgutter.git
+https://github.com/tpope/vim-fugitive
 https://github.com/nathanaelkane/vim-indent-guides.git
