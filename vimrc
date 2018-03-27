@@ -176,32 +176,36 @@ set noshowmode
 
 let g:lightline = {
 \ 'colorscheme': 'custom_style',
+\ 'active' : {
+\   'left': [
+\     [ 'mode', 'paste' ],
+\     [  'filename', 'modified', 'readonly', 'tag' ]
+\   ],
+\   'right': [
+\     [ 'percent' ],
+\     [ 'lineinfo' ],
+\     [ 'fileformat', 'fileencoding', 'filetype' ]
+\   ]
+\ },
+\ 'inactive' : {
+\   'left' : [
+\     [ 'filename' ],
+\   ],
+\   'right' : [
+\     [ 'percent' ],
+\     [ 'lineinfo' ],
+\     [ 'fileformat', 'fileencoding', 'filetype' ]
+\   ]
+\ },
+\ 'component' : {
+\   'print_test' : 'Hello, world!',
+\   'char_test' : '0x%B',
+\   'tag' : '%{tagbar#currenttag("%s", "default", "f" )}'
+\ },
+\ 'component_function': {
+\   'gitbranch' : 'fugitive#head',
 \ }
-
-let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified' ] ],
-    \ 'right':[ [ 'percent' ],
-    \           [ 'lineinfo' ],
-    \           [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-let g:lightline.inactive = {
-    \ 'left': [ [ 'filename' ] ],
-    \ 'right': [ [ 'percent' ],
-    \            [ 'lineinfo' ],
-    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-
-"" try to disable status for plugin
-" let g:lightline = {
-      " \ 'colorscheme': 'custom_style',
-      " \ 'component_function': {
-      " \   'filetype': 'LightlineFiletype',
-      " \ },
-      " \ }
-
-" function! LightlineFiletype()
-  " return &filetype !=# 'nerdtree' ? expand('%:t') : ''
-" endfunction
-
+\}
 
 "*****************"
 "***** other *****"
