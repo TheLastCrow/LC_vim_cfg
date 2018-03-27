@@ -72,8 +72,8 @@ nnoremap <C-Down> <C-I>
 " force copy in clipboard in * and + reg
 vnoremap y "+y :let @*=@+ <CR>
 
-noremap <C-t> :split<CR>
-noremap <C-y> :vsplit<CR>
+noremap <m-z> :split<CR>
+noremap <m-a> :vsplit<CR>
 " noremap <Esc> :q<CR>
 
 "*********************"
