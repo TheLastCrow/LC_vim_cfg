@@ -110,7 +110,16 @@ let g:NERDTreeMapRefreshRoot='<C-F5>'
 " up a dir
 let g:NERDTreeMapUpdirKeepOpen='<m-Up>'
 
-" *** Bookmark ***
+
+" ******* Tab handle *******
+map <C-t> :tabnew<CR>:NERDTree<CR>:NERDTreeFromBookmark 
+
+set guitablabel=%{exists('t:mytablabel')?t:mytablabel\ :''}
+
+map <C-q> :let t:mytablabel = '
+
+
+" ******* Bookmark *******
 
 " Bookmark display
 let g:NERDTreeMapToggleBookmarks='<C-b>'
@@ -162,10 +171,10 @@ endif
 map <C-F8> :MBEOpen<CR>
 
 "switch left file
-map <C-PageUp> :MBEbp<CR>
+" map <C-PageUp> :MBEbp<CR>
 
 "switch right file
-map <C-PageDown> :MBEbn<CR>
+" map <C-PageDown> :MBEbn<CR>
 
 "switch previous file
 " map <C-Up> :MBEbb<CR>
