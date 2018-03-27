@@ -50,6 +50,9 @@ set expandtab       " Expand TABs to spaces
 set backspace=2
 set backspace=indent,eol,start
 
+" beautiful cmd line autocompletion
+set wildmenu
+
 "*********************"
 "****Custom key*******"
 "*********************"
