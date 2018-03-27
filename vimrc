@@ -124,6 +124,17 @@ map <S-b> :Bookmark
 "set fociused of NerdTree as new pwd :help NERDTree-cd
 "cd 
 
+"git nerdtree after bookmarke change:
+"update pwd with cd
+"refresh c f5
+
+set autoread
+au CursorHold * if exists("t:NerdTreeBufName") | call <SNR>19_refreshRoot() | endif
+" autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
+
+" automatic switch cwd when open bookmark
+let g:NERDTreeChDirMode=2
+
 
 "*******************"
 ""***** tagbar *****"
