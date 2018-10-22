@@ -248,8 +248,9 @@ function! GoBuffer(count)
 endfunction
 
 command! -nargs=1 GoBufferCmd call GoBuffer(<args>)
-map ² :<C-U>GoBufferCmd(v:count)<CR><CR>
+" map ² :<C-U>GoBufferCmd(v:count)<CR><CR>
 
+map ² :BufExplorer<CR>
 "----------------------------------------------------------------------------
 "" window shortcut
 "----------------------------------------------------------------------------
